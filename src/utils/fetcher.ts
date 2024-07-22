@@ -12,18 +12,18 @@ export async function fetcher<T>(config: AxiosRequestConfig) {
     return data;
 }
 
-export async function getFether<T>(key: string) {
+export async function getFetcher<T>(key: string) {
     return fetcher<T>({
         url: key,
         method: 'GET',
     });
 }
 
-export async function postFetcher<Tres, Targ>(key: string, body: { arg: Targ }) {
-    return fetcher<Tres>({
+export async function postFetcher<T, U>(key: string, data: U) {
+    return fetcher<T>({
         url: key,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        data: body.arg,
+        data,
     });
 }
