@@ -29,6 +29,10 @@ const apiList = {
         url: '/api/room/message/list',
         method: 'GET',
     },
+    messageUpdate: {
+        url: '/api/room/message/getUpdate',
+        method: 'GET',
+    }
 };
 // 带来的另一个好处是可以检查key有没有写错
 type ApiKey = keyof typeof apiList;
@@ -119,5 +123,7 @@ function useMessageList(args: MessageListArgs | null) {
     );
     return res;
 }
+
+// TODO: Message Update
 
 export default { useRoomList, useRoomAdd, useRoomDelete, useMessageAdd, useMessageList };
