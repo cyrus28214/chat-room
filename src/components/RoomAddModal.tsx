@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import Modal from "./modal/Modal";
-import api from "../api/api";
-import { UserContext } from "../utils/context";
-import { parseError } from "../utils/error";
+import api from "./../api/api";
+import { UserContext } from "./../utils/context";
+import { parseError } from "./../utils/error";
 import NoticeModal from "./modal/NoticeModal";
 
 interface RoomAddModalProps {

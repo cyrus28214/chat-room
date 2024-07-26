@@ -3,7 +3,7 @@ import PlusIcon from '../assets/icons/solid/plus.svg?react';
 import RoomAddModal from './RoomAddModal';
 import ThemeToggler from './ThemeToggler';
 
-export default function RoomToolBar() {
+export default function ToolBar() {
     const [showModal, setShowModal] = useState(false);
     const itemClass = 'menu-item tooltip';
     const btnClass = 'btn btn-sm btn-circle btn-ghost p-1';
