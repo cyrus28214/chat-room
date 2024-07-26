@@ -5,6 +5,7 @@ export function useCache(key: string, initialValue: string) {
         const cachedValue = localStorage.getItem(key);
         return cachedValue || initialValue;
     });
+    console.log(key, initialValue, value);
     useEffect(() => {
         localStorage.setItem(key, value);
     }, [key, value]);

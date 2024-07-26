@@ -1,14 +1,15 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import { ChatRoom } from "./pages/ChatRoom"
 import SetName from "./pages/SetName"
 import { ThemeContext, UserContext } from "./utils/context";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getSystemTheme } from "./utils/theme";
+import { useCache } from "./utils/cache";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SetName />
+    element: <Home />
   },
   {
     path: "/chat-room",
@@ -20,9 +21,18 @@ const router = createBrowserRouter([
   }
 ])
 
+function Home() {
+  const [username] = useCache("username", "");
+  if (username) {
+    return <Navigate to="/chat-room" />
+  } else {
+    return <Navigate to="/set-name" />
+  }
+}
+
 function App() {
-  const [username, setUsername] = useState<string>('');
-  const [theme, setTheme] = useState<string>(getSystemTheme());
+  const [username, setUsername] = useCache("username", "");
+  const [theme, setTheme] = useCache('theme', getSystemTheme());
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);

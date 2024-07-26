@@ -8,6 +8,6 @@ export function randomColor(str: string) {
     const hashNum3 = parseInt(hashStr.substring(16, 24), 16);
     const hue = hashNum1 % 360;
     const saturation = 40 + hashNum2 % 50;
-    const lightness = 40 + hashNum3 % 50;
+    const lightness = 40 + hashNum3 % 40;
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }

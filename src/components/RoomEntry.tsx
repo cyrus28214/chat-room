@@ -6,10 +6,13 @@ import ChatInput from "./ChatInput";
 
 export default function RoomEntry() {
     const roomId = useContext(ChatContext)?.roomId;
+    const { data: roomListRes } = api.useRoomList();
     const { data: messageListRes } = api.useMessageList(roomId ? { roomId } : null);
     const messages = messageListRes?.messages || [];
 
-    return (roomId &&
+    const roomIdValid = roomId && roomListRes?.rooms.some(room => room.roomId === roomId);
+
+    return (roomIdValid &&
         <div className='h-full flex flex-col'>
             <div className='flex-1 overflow-y-scroll'>
                 <div className='px-6 py-4'>
