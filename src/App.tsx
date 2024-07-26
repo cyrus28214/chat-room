@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  const [username, setUsername] = useState<string | undefined>(undefined);
+  const [username, setUsername] = useState<string>('');
   const [theme, setTheme] = useState<string>(getSystemTheme());
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);

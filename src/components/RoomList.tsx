@@ -42,7 +42,7 @@ export function RoomList() {
     const { data: roomListRes } = api.useRoomList();
     const [deleteTarget, setDeleteTarget] = useState<null | RoomPreviewInfo>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const chatContext = useContext(ChatContext);
+    const { roomId, setRoomId } = useContext(ChatContext);
 
     return (<ul className='menu h-full flex-nowrap'>
         {roomListRes?.rooms.map((room) => (
@@ -53,8 +53,8 @@ export function RoomList() {
                         setShowDeleteModal(true);
                         setDeleteTarget(room);
                     }}
-                    onRoomActivate={() => { chatContext?.setRoomId(room.roomId) }}
-                    cls={room.roomId === chatContext?.roomId ? 'active' : ''}
+                    onRoomActivate={() => { setRoomId && setRoomId(room.roomId) }}
+                    cls={room.roomId === roomId ? 'active' : ''}
                 />
             </li>
         ))}

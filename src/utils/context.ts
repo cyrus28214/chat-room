@@ -1,19 +1,19 @@
 import { createContext } from "react";
 
 interface UserContextType {
-    name: string | undefined;
-    setName: React.Dispatch<React.SetStateAction<string | undefined>>;
+    name: string;
+    setName?: React.Dispatch<React.SetStateAction<string>>;
 }
-export const UserContext = createContext<UserContextType | null>(null);
+export const UserContext = createContext<UserContextType>({ name: "" });
 
 interface ChatContextType {
-    roomId: number | undefined;
-    setRoomId: React.Dispatch<React.SetStateAction<number | undefined>>;
+    roomId: number | null;
+    setRoomId?: React.Dispatch<React.SetStateAction<number | null>>;
 }
-export const ChatContext = createContext<ChatContextType | null>(null);
+export const ChatContext = createContext<ChatContextType>({ roomId: null });
 
 interface ThemeContextType {
     theme: string;
-    setTheme: React.Dispatch<React.SetStateAction<string>>;
+    setTheme?: React.Dispatch<React.SetStateAction<string>>;
 }
-export const ThemeContext = createContext<ThemeContextType>({ theme: "light", setTheme: () => { } });
+export const ThemeContext = createContext<ThemeContextType>({ theme: "light" });

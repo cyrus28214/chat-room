@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { Message, Response, RoomPreviewInfo } from "../utils/types";
 import useSWR, { useSWRConfig } from "swr";
+import useSWRMutation from "swr/mutation";
 
 axios.defaults.baseURL = 'https://chatroom.zjuxlab.com';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -32,8 +33,8 @@ const apiList = {
 // 带来的另一个好处是可以检查key有没有写错
 type ApiKey = keyof typeof apiList;
 
-async function fetcher<T = unknown>(key: ApiKey, args: AxiosRequestConfig = {}) {
-    const { data: res } = await axios.request<Response<T>>({ ...apiList[key], ...args });
+async function fetcher<T = unknown>(key: ApiKey, body?: { arg: AxiosRequestConfig }) {
+    const { data: res } = await axios.request<Response<T>>({ ...apiList[key], ...body?.arg });
     const { code, message, data } = res;
     if (code !== 0) {
         throw new Error(`${message}(code: ${code})`);
@@ -60,9 +61,12 @@ interface RoomAddRes {
     roomId: string;
 }
 function useRoomAdd() {
+    const { trigger } = useSWRMutation<RoomAddRes, any, ApiKey,
+        { data: RoomAddArgs }
+    >('roomAdd', fetcher<RoomAddRes>);
     const { mutate } = useSWRConfig();
     return async (args: RoomAddArgs) => {
-        const res = await fetcher<RoomAddRes>('roomAdd', { data: args });
+        const res = await trigger({ data: args });
         mutate('roomList');
         return res;
     }
@@ -74,9 +78,12 @@ interface RoomDeleteArgs {
     roomId: number;
 }
 function useRoomDelete() {
+    const { trigger } = useSWRMutation<null, any, ApiKey,
+        { data: RoomDeleteArgs }
+    >('roomDelete', fetcher<null>);
     const { mutate } = useSWRConfig();
     return async (args: RoomDeleteArgs) => {
-        await fetcher<null>('roomDelete', { data: args });
+        await trigger({ data: args });
         mutate('roomList');
     }
 }
@@ -88,10 +95,13 @@ interface MessageAddArgs {
     sender: string;
 }
 function useMessageAdd() {
+    const { trigger } = useSWRMutation<null, any, ApiKey,
+        { data: MessageAddArgs }
+    >('messageAdd', fetcher<null>);
     const { mutate } = useSWRConfig();
     return async (args: MessageAddArgs) => {
-        await fetcher<null>('messageAdd', { data: args });
-        mutate(`messageList?${args.roomId}`);
+        await trigger({ data: args });
+        mutate(`messageList_${args.roomId}`);
     }
 }
 
@@ -103,10 +113,9 @@ interface MessageListRes {
     messages: Message[];
 }
 function useMessageList(args: MessageListArgs | null) {
-    const key = args ? `messageList?${args.roomId}` : null;
-    // 由于React通过Hooks的调用顺序来确定状态，Hooks不能被条件调用，必须通过传入null来阻止请求，而不是用if-else语句。
+    const key = args && `messageList_${args.roomId}`;
     const res = useSWR<MessageListRes>(key,
-        () => fetcher<MessageListRes>('messageList', { params: args })
+        () => fetcher<MessageListRes>('messageList', { arg: { params: args } })
     );
     return res;
 }

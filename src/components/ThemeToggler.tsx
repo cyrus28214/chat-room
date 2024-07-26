@@ -6,14 +6,14 @@ import { ThemeContext } from "../utils/context";
 
 
 export default function ThemeToggler({ className }: { className?: string }): JSX.Element {
-    const themeCtx = useContext(ThemeContext);
+    const { theme, setTheme } = useContext(ThemeContext);
     const toggleTheme = () => {
-        themeCtx.setTheme(themeCtx.theme === "light" ? "dark" : "light");
+        setTheme && setTheme(theme === "light" ? "dark" : "light");
     }
 
     return <>
         <label className={`swap swap-rotate ${className}`}>
-            <input type="checkbox" className="theme-controller" value={themeCtx.theme} onChange={toggleTheme} />
+            <input type="checkbox" className="theme-controller" value={theme} onChange={toggleTheme} />
             <SunIcon className="swap-off size-full fill-current" />
             <MoonIcon className="swap-on size-full fill-current" />
         </label>

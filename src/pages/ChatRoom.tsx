@@ -5,7 +5,7 @@ import RoomEntry from "../components/RoomEntry";
 import { Navigate } from "react-router-dom";
 
 export function ChatRoom() {
-    const [activeRoomId, setActiveRoomId] = useState<number | undefined>(undefined);
+    const [activeRoomId, setActiveRoomId] = useState<number | null>(null);
 
     const user = useContext(UserContext);
     useEffect(() => {

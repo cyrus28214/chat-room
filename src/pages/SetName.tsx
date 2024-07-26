@@ -4,18 +4,16 @@ import { useNavigate } from "react-router-dom";
 import LogoIcon from "../assets/icons/solid/comments.svg?react";
 
 export default function SetName() {
-    const userContext = useContext(UserContext);
+    const { name, setName } = useContext(UserContext);
     const [value, setValue] = useState("");
     const navigate = useNavigate();
-
-    const user = useContext(UserContext);
     useEffect(() => {
-        if (user?.name) {
-            document.title = `设置名称 - ${user.name}`;
+        if (name) {
+            document.title = `设置名称 - ${name}`;
         } else {
             document.title = "设置名称";
         }
-    }, [user?.name]);
+    }, [name]);
 
     const BtnCls = value.trim() === "" ? "btn btn-disabled" : "btn btn-primary";
 
@@ -41,7 +39,7 @@ export default function SetName() {
                 <div className="card-actions justify-end">
                     <button className={BtnCls}
                         onClick={() => {
-                            userContext?.setName(value);
+                            setName && setName(value);
                             setValue("");
                             navigate("/chat-room");
                         }}>提交</button>
