@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { Response, RoomPreviewInfo } from "../utils/types";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 axios.defaults.baseURL = 'https://chatroom.zjuxlab.com';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -42,8 +42,13 @@ interface RoomAddArgs {
 interface RoomAddRes {
     roomId: string;
 }
-function roomAdd(args: RoomAddArgs) {
-    return fetcher<RoomAddRes>('roomAdd', { data: args });
+function useRoomAdd() {
+    const { mutate } = useSWRConfig();
+    return async (args: RoomAddArgs) => {
+        const res = await fetcher<RoomAddRes>('roomAdd', { data: args });
+        mutate('roomList');
+        return res;
+    }
 }
 
-export default { useRoomList, roomAdd };
+export default { useRoomList, useRoomAdd };
