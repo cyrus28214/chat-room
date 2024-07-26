@@ -11,7 +11,9 @@ function App() {
         <div className='h-full w-72'>
           <SideBar />
         </div>
-        <RoomEntry />
+        <div className='h-full flex-1'>
+          <RoomEntry />
+        </div>
       </div>
     </ChatContext.Provider>
   </UserContext.Provider>)

@@ -1,14 +1,19 @@
+import { Message } from "../utils/types";
+
 interface MessageItemProps {
-    position?: "start" | "end";
-    message: string;
+    message: Message;
 }
 
-export default function MessageItem(props: MessageItemProps) {
-    const positionClass = props.position === "end" ? "chat-end" : "chat-start";
+export default function MessageItem({
+    message: { sender, content, time }
+}: MessageItemProps) {
     return (
-        <div className={`chat ${positionClass}`}>
-            <div className="chat-bubble whitespace-pre-line">
-                {props.message}
+        <div className="chat chat-start">
+            <div className="chat-header">
+                {sender}<time className="ms-2 text-xs opacity-50">{new Date(time).toLocaleString()}</time>
+            </div>
+            <div className="chat-bubble">
+                {content}
             </div>
         </div>
     );

@@ -34,7 +34,7 @@ export function RoomDeleteConfirm({ show, room, onClose }: RoomDeleteConfirmProp
             onClose();
             setResTitle('删除失败');
             const errorStr = parseError(error);
-            if (errorStr.includes('（错误码： 2）')) {
+            if (errorStr.includes('(code: 2)')) {
                 setResMsg('你没有权限删除该房间');
             } else {
                 setResMsg(errorStr);

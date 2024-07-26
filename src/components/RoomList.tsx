@@ -11,6 +11,8 @@ interface RoomItemProps {
     onRoomActivate: () => void,
     cls?: string
 }
+
+// 特性：文字长度具有一定灵活性，当文字过长时，会自动省略，并显示省略号
 function RoomItem({ room, onRoomDelete, onRoomActivate, cls }: RoomItemProps) {
     const msg = room.lastMessage;
     const msgStr = msg ? `${msg.sender} : ${msg.content}` : '';
