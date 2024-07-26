@@ -9,7 +9,7 @@ export default function RoomEntry() {
     const { data: messageListRes } = api.useMessageList(roomId ? { roomId } : null);
     const messages = messageListRes?.messages || [];
 
-    return (<>
+    return (roomId &&
         <div className='h-full flex flex-col'>
             <div className='flex-1 overflow-y-scroll'>
                 <div className='px-6 py-4'>
@@ -19,6 +19,5 @@ export default function RoomEntry() {
             <div className='px-6 pb-6'>
                 <ChatInput />
             </div>
-        </div>
-    </>);
+        </div>);
 }
