@@ -1,21 +1,49 @@
+import axios, { AxiosRequestConfig } from "axios";
+import { Response, RoomPreviewInfo } from "../utils/types";
 import useSWR from "swr";
-import { getFetcher } from "../utils/fetcher";
-import { RoomPreviewInfo } from "../utils/types";
 
-// // Room Add
-// interface RoomAddArgs {
-//     user: string;
-//     roomName: string;
-// }
-// interface RoomAddRes {
-//     roomId: string;
-// }
-// export const useRoomAdd = (token: RoomAddArgs) => useSWR<RoomAddRes>(['/api/room/add', token], ([url, token]) => postFetcher(url, token));
+axios.defaults.baseURL = 'https://chatroom.zjuxlab.com';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+const apiList = {
+    roomList: {
+        url: '/api/room/list',
+        method: 'GET',
+    },
+    roomAdd: {
+        url: '/api/room/add',
+        method: 'POST',
+    },
+};
+type ApiKey = keyof typeof apiList;
+
+async function fetcher<T = unknown>(key: ApiKey, args: AxiosRequestConfig = {}) {
+    const { data: res } = await axios.request<Response<T>>({ ...apiList[key], ...args });
+    const { code, message, data } = res;
+    if (code !== 0) {
+        throw new Error(`${code}: ${message}`);
+    }
+    return data;
+}
 
 // Room List
 interface RoomListRes {
     rooms: RoomPreviewInfo[];
 }
-export const useRoomList = () => useSWR<RoomListRes>('/api/room/list', getFetcher);
+function useRoomList() {
+    return useSWR<RoomListRes, any, ApiKey>('roomList', fetcher);
+}
 
-export default { useRoomList };
+// Room Add
+interface RoomAddArgs {
+    user: string;
+    roomName: string;
+}
+interface RoomAddRes {
+    roomId: string;
+}
+function roomAdd(args: RoomAddArgs) {
+    return fetcher<RoomAddRes>('roomAdd', { data: args });
+}
+
+export default { useRoomList, roomAdd };
