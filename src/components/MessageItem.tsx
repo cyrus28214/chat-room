@@ -12,7 +12,7 @@ export default function MessageItem({
             <div className="chat-header">
                 {sender}<time className="ms-2 text-xs opacity-50">{new Date(time).toLocaleString()}</time>
             </div>
-            <div className="chat-bubble">
+            <div className="chat-bubble text-wrap break-words">
                 {content}
             </div>
         </div>

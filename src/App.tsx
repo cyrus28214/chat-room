@@ -8,7 +8,7 @@ function App() {
   return (<UserContext.Provider value='cyrus'>
     <ChatContext.Provider value={{ roomId: activeRoomId, setRoomId: setActiveRoomId }}>
       <div className='h-screen flex'>
-        <div className='h-full w-72'>
+        <div className='h-full w-56 md:w-72 lg:w-96'>
           <SideBar />
         </div>
         <div className='h-full flex-1'>
