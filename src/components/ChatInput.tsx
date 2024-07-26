@@ -8,12 +8,12 @@ export default function ChatInput() {
     const messageAdd = api.useMessageAdd();
 
     const roomId = useContext(ChatContext)?.roomId;
-    const user = useContext(UserContext);
+    const user = useContext(UserContext)!;
 
     async function handleSubmit() {
-        if (roomId && user) {
+        if (roomId && user?.name) {
             await messageAdd({
-                sender: user,
+                sender: user.name,
                 roomId: roomId,
                 content: value
             });

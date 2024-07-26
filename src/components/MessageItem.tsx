@@ -10,7 +10,7 @@ export default function MessageItem({
     message: { sender, content, time }
 }: MessageItemProps) {
     const user = useContext(UserContext);
-    const chatCls = user === sender ? 'chat-end' : 'chat-start';
+    const chatCls = user?.name === sender ? 'chat-end' : 'chat-start';
     return (
         <div className={`chat ${chatCls}`}>
             <div className="chat-header">

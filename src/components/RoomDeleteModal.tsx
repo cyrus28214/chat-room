@@ -20,14 +20,14 @@ export function RoomDeleteConfirm({ show, room, onClose }: RoomDeleteConfirmProp
     const [resMsg, setResMsg] = useState<string>('');
 
     async function handleConfirm() {
-        if (!user) {
+        if (!user?.name) {
             onClose();
             setResTitle('删除失败');
             setResMsg('请先登录');
             return;
         }
         try {
-            await roomDelete({ user, roomId: room.roomId });
+            await roomDelete({ user: user.name, roomId: room.roomId });
             if (room.roomId === chatContext?.roomId) {
                 chatContext?.setRoomId(undefined);
             }

@@ -20,14 +20,14 @@ export default function RoomAddModal({ show, onClose }: RoomAddModalProps) {
     const [resMsg, setResMsg] = useState<string>('');
 
     async function handleRoomAdd() {
-        if (!user) {
+        if (!user?.name) {
             onClose();
             setResTitle('创建失败');
             setResMsg('请先登录');
             return;
         }
         try {
-            await roomAdd({ user, roomName });
+            await roomAdd({ user: user.name, roomName });
             onClose();
             setRoomName('');
             setResTitle('创建成功');
