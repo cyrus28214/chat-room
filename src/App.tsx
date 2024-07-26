@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { ChatRoom } from "./pages/ChatRoom"
 import SetName from "./pages/SetName"
-import { UserContext } from "./utils/context";
-import { useState } from "react";
+import { ThemeContext, UserContext } from "./utils/context";
+import { useEffect, useState } from "react";
+import { getSystemTheme } from "./utils/theme";
 
 const router = createBrowserRouter([
   {
@@ -21,9 +22,15 @@ const router = createBrowserRouter([
 
 function App() {
   const [username, setUsername] = useState<string | undefined>(undefined);
+  const [theme, setTheme] = useState<string>(getSystemTheme());
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   return <UserContext.Provider value={{ name: username, setName: setUsername }}>
-    <RouterProvider router={router} />
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <RouterProvider router={router} />
+    </ThemeContext.Provider>
   </UserContext.Provider>
 }
 

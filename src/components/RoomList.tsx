@@ -4,6 +4,8 @@ import XmarkIcon from "../assets/icons/solid/xmark.svg?react";
 import { useContext, useState } from "react";
 import { RoomDeleteConfirm } from "./RoomDeleteModal";
 import { ChatContext } from "../utils/context";
+import Avatar from "./Avatar";
+import { randomColor } from "../utils/color";
 
 interface RoomItemProps {
     room: RoomPreviewInfo,
@@ -17,13 +19,15 @@ function RoomItem({ room, onRoomDelete, onRoomActivate, cls }: RoomItemProps) {
     const msg = room.lastMessage;
     const msgStr = msg ? `${msg.sender} : ${msg.content}` : '';
 
-    return (<div className={`flex w-full justify-between group ${cls}`}
+    return (<div className={`flex w-full justify-between group ${cls} py-3`}
         onClick={onRoomActivate}>
-        <div className='min-w-0 flex-growflex flex-col items-stretch gap-0'
+        <div className="w-12 flex justify-center shrink-0">
+            <Avatar color={randomColor(room.roomId.toString())} />
+        </div>
+        <div className='min-w-0 flex-grow flex flex-col ms-2'
             title={room.roomName + '\n' + msgStr}>
             <div className='text-base h-6 ellipsis'>{room.roomName}</div>
             <div className='opacity-60 h-5 ellipsis' > {msgStr} </div>
-
         </div >
         <XmarkIcon className='-me-2 fill-current btn btn-sm btn-circle btn-ghost p-1 hidden group-hover:block'
             onClick={(e) => {

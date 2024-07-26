@@ -46,7 +46,9 @@ interface RoomListRes {
     rooms: RoomPreviewInfo[];
 }
 function useRoomList() {
-    return useSWR<RoomListRes, any, ApiKey>('roomList', fetcher);
+    return useSWR<RoomListRes, any, ApiKey>('roomList', fetcher, {
+        refreshInterval: 1000
+    });
 }
 
 // Room Add
