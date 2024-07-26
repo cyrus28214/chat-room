@@ -11,6 +11,6 @@ html, body, #root {
     /* tailwind会自动stable，防止布局被滚动条打乱，但是我觉得右边的gutter太丑了 */
 }
 
-.my-btn-round {
-    @apply btn btn-sm btn-circle btn-ghost p-1
+.ellipsis {
+    @apply text-ellipsis overflow-hidden whitespace-nowrap
 }

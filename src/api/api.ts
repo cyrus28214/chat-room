@@ -14,6 +14,10 @@ const apiList = {
         url: '/api/room/add',
         method: 'POST',
     },
+    roomDelete: {
+        url: '/api/room/delete',
+        method: 'POST',
+    },
 };
 type ApiKey = keyof typeof apiList;
 
@@ -21,7 +25,7 @@ async function fetcher<T = unknown>(key: ApiKey, args: AxiosRequestConfig = {}) 
     const { data: res } = await axios.request<Response<T>>({ ...apiList[key], ...args });
     const { code, message, data } = res;
     if (code !== 0) {
-        throw new Error(`${code}: ${message}`);
+        throw new Error(`${message}（错误码： ${code}）`);
     }
     return data;
 }
@@ -51,4 +55,18 @@ function useRoomAdd() {
     }
 }
 
-export default { useRoomList, useRoomAdd };
+// Room Delete
+interface RoomDeleteArgs {
+    user: string;
+    roomId: number;
+}
+function useRoomDelete() {
+    const { mutate } = useSWRConfig();
+    return async (args: RoomDeleteArgs) => {
+        console.log(args);
+        await fetcher<null>('roomDelete', { data: args });
+        mutate('roomList');
+    }
+}
+
+export default { useRoomList, useRoomAdd, useRoomDelete };

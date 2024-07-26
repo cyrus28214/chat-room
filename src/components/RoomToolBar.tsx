@@ -12,7 +12,7 @@ export default function RoomToolBar() {
             <PlusIcon
                 className={`${btnClass} fill-current`}
                 onClick={() => setShowModal(true)} />
-            <RoomAddModal visible={showModal} onClose={() => setShowModal(false)} />
+            <RoomAddModal show={showModal} onClose={() => setShowModal(false)} />
         </li>
         <li className={itemClass} data-tip='切换主题'>
             <ThemeToggler className={btnClass} />
