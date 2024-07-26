@@ -20,6 +20,10 @@ const apiList = {
         url: '/api/room/delete',
         method: 'POST',
     },
+    messageAdd: {
+        url: '/api/message/add',
+        method: 'POST',
+    },
     messageList: {
         url: '/api/room/message/list',
         method: 'GET',
@@ -75,6 +79,20 @@ function useRoomDelete() {
     }
 }
 
+// Message Add
+interface MessageAddArgs {
+    roomId: number;
+    content: string;
+    sender: string;
+}
+function useMessageAdd() {
+    const { mutate } = useSWRConfig();
+    return async (args: MessageAddArgs) => {
+        await fetcher<null>('messageAdd', { data: args });
+        mutate(`messageList?${args.roomId}`);
+    }
+}
+
 // Message List
 interface MessageListArgs {
     roomId: number;
@@ -88,8 +106,7 @@ function useMessageList(args: MessageListArgs | null) {
     const res = useSWR<MessageListRes>(key,
         () => fetcher<MessageListRes>('messageList', { params: args })
     );
-    console.log(res);
     return res;
 }
 
-export default { useRoomList, useRoomAdd, useRoomDelete, useMessageList };
+export default { useRoomList, useRoomAdd, useRoomDelete, useMessageAdd, useMessageList };
