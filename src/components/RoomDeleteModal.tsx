@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import api from "../api/api";
-import { ChatContext, UserContext } from "../utils/context";
+import { UserContext } from "../utils/context";
 import ConfirmModal from "./modal/ConfirmModal";
 import NoticeModal from "./modal/NoticeModal";
 import { parseError } from "../utils/error";
@@ -14,8 +14,6 @@ interface RoomDeleteConfirmProps {
 export function RoomDeleteConfirm({ show, room, onClose }: RoomDeleteConfirmProps) {
     const roomDelete = api.useRoomDelete();
     const user = useContext(UserContext);
-    const chatContext = useContext(ChatContext);
-
     const [resTitle, setResTitle] = useState<string>('');
     const [resMsg, setResMsg] = useState<string>('');
 
@@ -28,9 +26,6 @@ export function RoomDeleteConfirm({ show, room, onClose }: RoomDeleteConfirmProp
         }
         try {
             await roomDelete({ user: user.name, roomId: room.roomId });
-            if (room.roomId === chatContext?.roomId) {
-                chatContext?.setRoomId(undefined);
-            }
             onClose();
             setResTitle('删除成功');
             setResMsg(`房间“${room.roomName}”删除成功`);

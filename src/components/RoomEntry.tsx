@@ -10,17 +10,23 @@ export default function RoomEntry() {
     const { data: messageListRes } = api.useMessageList(roomId ? { roomId } : null);
     const messages = messageListRes?.messages || [];
 
-    const roomIdValid = roomId && roomListRes?.rooms.some(room => room.roomId === roomId);
+    if (!roomId || !roomListRes) return null;
+    const room = roomListRes.rooms.find(room => room.roomId === roomId);
+    if (!room) return null;
 
-    return (roomIdValid &&
-        <div className='h-full flex flex-col'>
-            <div className='flex-1 overflow-y-scroll'>
-                <div className='px-6 py-4'>
-                    <MessageList messages={messages} />
-                </div>
+    return (<div className='h-full flex flex-col'>
+        <div className='h-16 px-6 shadow-md flex items-center'>
+            <h2 className='text-lg font-bold'>
+                {room.roomName}
+            </h2>
+        </div>
+        <div className='flex-1 overflow-y-scroll'>
+            <div className='px-6 py-4'>
+                <MessageList messages={messages} />
             </div>
-            <div className='px-6 pb-6'>
-                <ChatInput />
-            </div>
-        </div>);
+        </div>
+        <div className='px-6 pb-6'>
+            <ChatInput />
+        </div>
+    </div>);
 }

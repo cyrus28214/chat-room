@@ -124,6 +124,4 @@ function useMessageList(args: MessageListArgs | null) {
     return res;
 }
 
-// TODO: Message Update
-
 export default { useRoomList, useRoomAdd, useRoomDelete, useMessageAdd, useMessageList };
