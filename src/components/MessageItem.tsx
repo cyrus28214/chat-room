@@ -19,9 +19,13 @@ export default function MessageItem({
                 <Avatar color={randomColor(sender)} />
             </div>
             <div className="chat-header">
-                {sender}<time className="ms-2 text-xs opacity-50">{new Date(time).toLocaleString()}</time>
+                <div className="flex items-center">
+                    <p className='shrink max-w-36 ellipsis' title={sender}>{sender}</p>
+                    <time className="ms-2 text-xs opacity-50">{new Date(time).toLocaleString()}</time>
+                </div>
             </div>
-            <div className="chat-bubble text-wrap break-words whitespace-pre">{content}</div>
-        </div>
-    );
+            <div className="chat-bubble text-wrap break-words whitespace-pre">
+                {content}
+            </div>
+        </div>);
 }

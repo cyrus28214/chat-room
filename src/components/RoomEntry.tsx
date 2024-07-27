@@ -21,7 +21,7 @@ export default function RoomEntry() {
                 {room.roomName}
             </h2>
         </div>
-        <div className='flex-1 overflow-y-scroll'>
+        <div className='flex-1 overflow-y-scroll overflow-x-hidden'>
             <div className='px-6 py-4'>
                 <MessageList messages={messages} />
             </div>
