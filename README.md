@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+# 聊天室
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+XLab 前端进阶项目，在线预览地址[https://cyrus28214.top/chat-room/](https://cyrus28214.top/chat-room/)
 
-Currently, two official plugins are available:
+## 技术栈
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 基于 React + TypeScript + Vite 搭建
+- 使用 Tailwindcss + DaisyUI 进行样式设计
+- 使用 Axios + SWR 实现数据请求和缓存
 
-## Expanding the ESLint configuration
+## 项目特点
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- 支持白天和黑夜模式切换
+- 点击按钮后有友好的模态框提示信息
+- 为图标按钮添加了Tooltip提示信息
+- 使用 `localStorage` 缓存了用户信息，刷新页面后依然可以保持状态
+- 完善的类型标注，充分利用了 TypeScript 的强大功能，几乎没有`any`。
 
-- Configure the top-level `parserOptions` property like this:
+## 效果展示
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+![](./images/preview1.png)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+![](./images/preview2.png)
+
+![](./images/preview3.png)
