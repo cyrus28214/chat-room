@@ -22,7 +22,7 @@ export function ChatRoom() {
     }, [name]);
 
     if (!name) {
-        return <Navigate to="/" />;
+        return <Navigate to="./set-name" />;
     }
 
     return (

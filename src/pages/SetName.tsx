@@ -41,7 +41,7 @@ export default function SetName() {
                         onClick={() => {
                             setName && setName(value);
                             setValue("");
-                            navigate("/chat-room");
+                            navigate("../");
                         }}>提交</button>
                 </div>
             </div>
