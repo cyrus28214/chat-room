@@ -25,7 +25,7 @@ export default function Modal({ children, show, onClose }: ModalProps) {
 
     return createPortal(
         <dialog ref={modalRef} className="modal" onCancel={onCancel}>
-            <div className="modal-box bg-base-200">
+            <div className="modal-box bg-base-200 overflow-hidden break-words">
                 <XmarkIcon onClick={onClose} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 p-1 fill-current" />
                 {children}
             </div>

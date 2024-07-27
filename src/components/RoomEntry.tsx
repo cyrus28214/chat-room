@@ -16,7 +16,8 @@ export default function RoomEntry() {
 
     return (<div className='h-full flex flex-col'>
         <div className='h-16 px-6 shadow-md flex items-center'>
-            <h2 className='text-lg font-bold'>
+            <h2 className='text-lg font-bold ellipsis'
+                title={room.roomName}>
                 {room.roomName}
             </h2>
         </div>

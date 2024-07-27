@@ -27,11 +27,11 @@ export function ChatRoom() {
 
     return (
         <ChatContext.Provider value={{ roomId, setRoomId }}>
-            <div className='h-screen flex'>
+            <div className='h-screen flex overflow-hidden'>
                 <div className='h-full w-56 md:w-72 lg:w-96'>
                     <SideBar />
                 </div>
-                <div className='h-full flex-1'>
+                <div className='h-full flex-1 min-w-0'>
                     <RoomEntry />
                 </div>
             </div>
