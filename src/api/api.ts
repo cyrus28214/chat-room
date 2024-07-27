@@ -44,6 +44,7 @@ async function fetcher<T = unknown>(key: ApiKey, body?: { arg: AxiosRequestConfi
         throw new Error(`${message}(code: ${code})`);
     }
     return data;
+
 }
 
 // Room List
@@ -108,6 +109,20 @@ function useMessageAdd() {
         mutate(`messageList_${args.roomId}`);
     }
 }
+
+/*
+fetch('https://chatroom.zjuxlab.com/api/message/add', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        roomId: 1,
+        content: 'hello',
+        sender: 'hello'
+    })  
+}).then(res => res.json()).then(data => console.log(data));
+*/
 
 // Message List
 interface MessageListArgs {
